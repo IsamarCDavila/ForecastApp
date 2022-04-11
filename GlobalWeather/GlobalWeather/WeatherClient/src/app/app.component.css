@@ -1,0 +1,30 @@
+.container {
+  padding: 15px;
+  background: #007bff1f;
+  height: 100vh;
+  overflow-y: auto;
+
+  
+}
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  background: #183153;
+  align-items: center;
+}
+  nav button {
+    border: none;
+    background: transparent;
+    color: #007bff;
+  }
+  figure {
+    margin: 0 0 0rem;
+  }
+
+
+@media (min-width: 560px) {
+  .container {
+    max-width: 100% !important;
+  }
+}

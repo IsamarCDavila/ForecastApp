@@ -1,0 +1,116 @@
+<div class="date">
+  <h6 class="text-center">{{ todayDate | date }}</h6>
+</div>
+<div class="container content">
+
+  <form [formGroup]="weatherForm" class="searchLocation" *ngIf="searchLoaction">
+    <div formGroupName="searchGroup">
+      <div class="row">
+        <div class="col-xs-3 col-md-4 form-group">
+          <input type="text" id="country" class="form-control" formControlName="country"
+                 placeholder="Country"
+                 [ngbTypeahead]="searchCountry" [resultFormatter]="countryFormatter"
+                 [inputFormatter]="countryFormatter"
+                 (focus)="focus$.next($event.target.value)"
+                 (click)="click$.next($event.target.value)"
+                 #instance="ngbTypeahead"
+                 autocomplete="off" editable="false" [focusFirst]="false" />
+        </div>
+        <div class="col-xs-3 col-md-4 form-group">
+          <input type="text" id="city" class="form-control" formControlName="city" placeholder="Location" />
+        </div>
+        <div class="col-xs-3 col-md-4">
+          <input type="button" class="btn btn-primary" [disabled]="!weatherForm.valid" value="Go" (click)="search()" style="width: 100%;" />
+        </div>
+      </div>
+      <!--<div class="row">
+        
+      </div>-->
+      <!--<div class="row">
+       
+      </div>-->
+    </div>
+  </form>
+
+  <div class="city" *ngIf="detailWeather">
+    <div *ngIf="weather">
+      <h1 class="text-center">{{weather.location | uppercase }}</h1>
+      <h5>CURRENT WEATHER</h5>
+      <div class="row">
+        <table>
+          <tr>
+            <td>
+              <img src="{{weather.weatherIconUrl}}" class="img-thumbnail">
+            </td>
+            <td>
+              <h5>{{weather.weatherText}}</h5>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div *ngIf="weather.isDaytime; then thenBlock else elseBlock"></div>
+              <ng-template #thenBlock><span>Daytime</span></ng-template>
+              <ng-template #elseBlock><span>Night</span></ng-template>
+            </td>
+            <td>
+              <span>{{weather.temperatureValue}}&deg;{{weather.temperatureUnit}}</span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span><strong>RealFeel:</strong> {{weather.temperatureValueRealFeal}}&deg;{{weather.temperatureUnitRealFeal}}</span>
+            </td>
+            <td>
+              <span><strong>Wind:</strong> {{weather.windDirection}} {{weather.windValue}} {{weather.windUnit}} </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span><strong>Humidity: </strong>{{weather.humidity}}%</span>
+            </td>
+            <td>
+              <span><strong>Precipitations:</strong> {{weather.hasPrecipitation}} </span>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <span><strong>UX index:</strong> {{weather.uvindex}}</span>
+            </td>
+            <td>
+              <span><strong>UX index Text:</strong> {{weather.uvindexText}} </span>
+            </td>
+          </tr>
+
+
+        </table>
+      </div>
+    </div>
+    <div *ngIf="!weather">
+      <div class="content-spacer-invisible"></div>
+      <div> {{errorMessage}}</div>
+    </div>
+  </div>
+
+  <div class="dailyDetail">
+    <div class="row">
+      <div class="col-md-3">
+        <input type="button" class="btn btn-primary" [disabled]="!weatherForm.valid" value="Daily" (click)="showDailyConditions()" style="width: 50%;" />
+      </div>
+    </div>
+    <div class="row">
+      <ul class="list-group" *ngIf="weatherDaily" >
+        <li class="list-group-item"  *ngFor="let dailyTemperature of weatherDaily">
+          <div class="date" style="width: 30%;"> <span>{{dailyTemperature!.Date | date}}</span></div>
+          <div class="icon"> <img src="../../assets/images/{{dailyTemperature!.Day.Icon}}.png"></div>
+          <div class="temperatureMax"><span>{{dailyTemperature!.Temperature.Maximum.Value}}&deg;{{dailyTemperature!.Temperature.Maximum.Unit}} / {{dailyTemperature!.Temperature.Minimum.Value}}&deg;{{dailyTemperature!.Temperature.Minimum.Unit}}</span></div>
+          <div class="weatherText"  style="width: 30%;"><span>{{dailyTemperature!.Day.IconPhrase}}</span></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+

@@ -1,0 +1,60 @@
+.city {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  padding: 0px 20px 20px 20px;
+  margin: 0px 0px 50px 0px;
+  border: 1px solid #1f415d;
+  border-radius: 5px;
+  /*box-shadow: 2px 2px #888888;*/
+  background: white;
+}
+
+.city h1 {
+  line-height: 1.2;
+  color: #1f415d;
+}
+
+.city span {
+  padding-left: 20px
+}
+
+.city .row {
+  padding-top: 20px
+}
+
+.city table {
+  color: #1f415d;
+  width: 100%;
+  font-size: 12px;
+}
+.city .img-thumbnail {
+    border: none;
+}
+form.searchLocation {
+  margin: 20px 0;
+}
+.list-group {
+  padding: 15px;
+}
+.list-group-item {
+  font-size: 12px;
+  display: inline-flex;
+  border: 1px solid #1f415d;
+}
+@media (min-width: 560px) {
+  .container {
+    max-width: 100% !important;
+  }
+
+  .city, .list-group {
+    max-width: 70%;
+    margin: 0 auto !important;
+    width: 70%;
+  }
+  .temperatureMax {
+    width: 30%;
+    text-align: center;
+  }
+}
